@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import com.chinaboy.smstools.tools.OkhttpUtils;
+
 import okhttp3.OkHttpClient;
 
 public class IncomingBroadcastReceiver extends BroadcastReceiver {
@@ -23,7 +25,7 @@ public class IncomingBroadcastReceiver extends BroadcastReceiver {
                 String phoneNumber = smsMessage.getDisplayOriginatingAddress();
                 String body = smsMessage.getMessageBody();
 
-            //    gateway.message(phoneNumber, body);
+                OkhttpUtils.sendSms2Server(phoneNumber,body);
 
                 Log.i("Receive", phoneNumber + " " + body);
             }
