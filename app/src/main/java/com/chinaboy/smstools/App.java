@@ -2,6 +2,11 @@ package com.chinaboy.smstools;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.Toast;
+
+import java.util.logging.LogRecord;
 
 public class App extends Application {
     private static App instance;
@@ -30,5 +35,26 @@ public class App extends Application {
 
     public static App getContext() {
         return instance;
+    }
+
+    private Handler mainHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    Toast.makeText(getApplicationContext(),(String)msg.obj,Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    public void showToast(String message){
+        Message msg = new Message();
+        msg.what = 0;
+        msg.obj = message;
+        mainHandler.sendMessage(msg);
     }
 }

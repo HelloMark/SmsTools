@@ -1,6 +1,9 @@
 package com.chinaboy.smstools.tools;
 
 import android.util.Log;
+import android.widget.Toast;
+
+import com.chinaboy.smstools.App;
 
 import java.io.IOException;
 
@@ -31,6 +34,8 @@ public class OkhttpUtils {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d(TAG, "onFailure: " + e.getMessage());
+                App.getContext().showToast(e.getMessage());
+            //    Toast.makeText(App.getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
