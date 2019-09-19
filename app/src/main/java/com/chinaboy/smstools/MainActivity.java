@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class MainActivity extends BaseActivity {
     private TextView tvContent;
 
     private int smsRequestCode = 1;
+    private int smsReceiveCode = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,13 @@ public class MainActivity extends BaseActivity {
                 readMessage();
             } else {
                 requestPerssion(new String[]{Manifest.permission.READ_SMS}, smsRequestCode);
+            }
+
+            boolean isReciverMessage = checkPermission(Manifest.permission.RECEIVE_SMS);
+            if (isReciverMessage) {
+            //    readMessage();
+            } else {
+                requestPerssion(new String[]{Manifest.permission.RECEIVE_SMS}, smsReceiveCode);
             }
         }else {
             readMessage();
@@ -70,6 +79,24 @@ public class MainActivity extends BaseActivity {
                     Uri uri = Uri.fromParts("package", getPackageName(), null);
                     intent.setData(uri);
                     startActivityForResult(intent, 1);
+
+                } else {
+                    Toast.makeText(this, "权限拒绝", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else if (smsReceiveCode == requestCode) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //已经授权
+                //readMessage();
+
+            } else {
+                //点击了不再提示,拒绝权限
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
+                    //跳转到设置界面
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, 2);
 
                 } else {
                     Toast.makeText(this, "权限拒绝", Toast.LENGTH_SHORT).show();

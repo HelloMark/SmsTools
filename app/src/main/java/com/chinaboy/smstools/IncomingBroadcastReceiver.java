@@ -11,7 +11,7 @@ public class IncomingBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        
         final Bundle bundle = intent.getExtras();
         try {
             if (null == bundle)
@@ -24,7 +24,7 @@ public class IncomingBroadcastReceiver extends BroadcastReceiver {
 
             //    gateway.message(phoneNumber, body);
 
-                Log.i("receive", phoneNumber + " " + body);
+                Log.i("Receive", phoneNumber + " " + body);
             }
         } catch (Exception e) {
             Log.e("Receive", e.getMessage());

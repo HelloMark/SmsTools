@@ -73,10 +73,10 @@ public class MessageUtil {
                         type = "2";
                     }
 
-                    name = getPeopleNameFromPerson(phoneNumber);
+                //    name = getPeopleNameFromPerson(phoneNumber);
 
                     MessageBean message = new MessageBean();
-                    message.setName(name);
+                //    message.setName(name);
                     message.setType(type);
                     message.setPhoneNumber(phoneNumber);
                     message.setSmsBody(smsbody);
